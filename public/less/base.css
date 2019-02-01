@@ -1,23 +1,25 @@
-*{
+* {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-body, h2, h3, h4, h5, ul, dl, dt, dd, p{
+body,
+h2,
+h3,
+h4,
+h5,
+ul,
+dl,
+dt,
+dd,
+p {
   padding: 0;
   margin: 0;
 }
-
-body{
-  font-family:roman, Arial, Helvetica, sans-serif;
+body {
+  font-family: roman, Arial, Helvetica, sans-serif;
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
   background-color: #fff;
 }
-
-ul{
+ul {
   list-style: none;
-}
-
-a{
-
 }

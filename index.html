@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <title>豆瓣一刻</title>
+    <!-- build:css ./public/less/main.css -->
+    <link rel="stylesheet" href="./public/less/main.css">
+    <!-- endbuild -->
+    <!-- build:remove -->
+    <script src='./public/libs/less.js'></script>
+    <!-- endbuild -->
+</head>
+<body ng-app='Yike'>
+    <div class="viewport">
+        <!-- 侧边导航 -->
+        <div ng-class='{navs: true, collapse: collapsed}' ng-controller='NavController'>
+            <dl>
+                <dt class='login'>
+                    <div class="avatar">
+                        <img src="./public/images/avatar.png" alt="">
+                    </div>
+                    <span>登录</span>
+                </dt>
+                <dd ng-class='{active: index == key}' ng-repeat='(key, nav) in navs'>
+                    <a href="{{nav.link}}" ng-click='toggle()' class='{{nav.icon}}'>
+                        <span>{{nav.text}}</span>
+                    </a>
+                </dd>
+            </dl>
+            <div class="extra">
+                <a href="javascript:void(0);" class='icon-image'>夜晚</a>
+                <a href="javascript:void(0);" class='icon-download'>夜晚</a>
+            </div>
+        </div>
+        <!-- 主体 -->
+        <div ng-class='{body: true, collapse: collapsed}'>
+            <div loading class='loading' ng-hide='loaded' src='./public/images/loading.gif'>
+                <!--占位符-->
+            </div>
+            <div ng-view></div>
+        </div>
+    </div>
+
+    <!-- build:js ./libs/angualr.min.js-->
+    <script src='./bower_components/angular/angular.js'></script>
+    <script src='./bower_components/angular-route/angular-route.js'></script>
+    <!-- endbuild -->
+
+    <!-- build.js ./scripts/app.js-->
+    <!-- AngularJS入口 -->
+    <script src='./scripts/app.js'></script>
+    <!-- 控制器模块 -->
+    <sscript src='./scripts/controllers.js'></sscript>
+    <!-- 指令模块 -->
+    <script src='./scripts/directives.js'></script>
+    <!-- endbuild -->
+
+</body>
+</html>
