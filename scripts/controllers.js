@@ -20,6 +20,7 @@ angular.module('Controllers', [])
     .controller('TodayController', ['$scope', '$http', '$filter', '$rootScope', function ($scope, $http, $filter, $rootScope) {
         //获取计算机时间
         var today = $filter('date')(new Date, 'yyyy-MM-dd');
+        // console.log(today);
         $rootScope.title = '今日一刻';
         $rootScope.index = 0;
         $rootScope.loaded = false;

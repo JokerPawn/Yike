@@ -1,4 +1,4 @@
-var Yike = angular.module('Yike', ['ngRoute', 'Controllers', 'Directives', 'infinite-scroll']);
+var Yike = angular.module('Yike', ['ngRoute', 'Controllers', 'Directives']);
 Yike.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/today', {
         templateUrl: './views/today.html',
