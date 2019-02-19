@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <meta name="referrer" content="no-referrer" />
     <title>豆瓣一刻</title>
+    <link rel="shortcut icon" href="./favicon.ico" type='image/x-icon'>
     <!-- build:css ./public/less/main.css -->
     <link rel="stylesheet" href="./public/less/main.css">
     <!-- endbuild -->
     <!-- build:remove -->
     <script src='./public/libs/less.js'></script>
+    <!--<script src="scripts/directives.js"></script>-->
     <!-- endbuild -->
 </head>
 <body ng-app='Yike'>
@@ -30,30 +33,45 @@
             </dl>
             <div class="extra">
                 <a href="javascript:void(0);" class='icon-image'>夜晚</a>
-                <a href="javascript:void(0);" class='icon-download'>夜晚</a>
+                <a href="javascript:void(0);" class='icon-download'>离线</a>
             </div>
         </div>
-        <!-- 主体 -->
-        <div ng-class='{body: true, collapse: collapsed}'>
-            <div loading class='loading' ng-hide='loaded' src='./public/images/loading.gif'>
-                <!--占位符-->
+
+        <div class="container">
+            <!-- 头部 -->
+            <div ng-class="{header: true, collapse: collapsed}">
+                <a href="javascript:void(0);" ng-click="toggle()" class="menu icon-menu"></a>
+                <h2>{{title}}</h2>
+                <a href="javascript:void(0);" class="search icon-search" ng-hide='index != 0'></a>
             </div>
-            <div ng-view></div>
+            <!-- 主体 -->
+            <div ng-class='{body: true, collapse: collapsed}'>
+                <div loading class='loading' ng-hide='loaded' src='./public/images/loading.gif'></div>
+                <!--占位符-->
+                <div ng-view></div>
+            </div>
         </div>
     </div>
+
+    <!--jsquery-->
+    <script src='./node_modules/jquery/dist/jquery.js'></script>
 
     <!-- build:js ./libs/angualr.min.js-->
     <script src='./bower_components/angular/angular.js'></script>
     <script src='./bower_components/angular-route/angular-route.js'></script>
+    <script src='./node_modules/ng-infinite-scroll/build/ng-infinite-scroll.js'></script>
     <!-- endbuild -->
 
-    <!-- build.js ./scripts/app.js-->
+    <!-- build:js ./scripts/app.js -->
     <!-- AngularJS入口 -->
     <script src='./scripts/app.js'></script>
-    <!-- 控制器模块 -->
-    <sscript src='./scripts/controllers.js'></sscript>
+    <!--自定义服务-->
+    <!--<script src='./scripts/services.js'></script>-->
     <!-- 指令模块 -->
     <script src='./scripts/directives.js'></script>
+    <!-- 控制器模块 -->
+    <script src='./scripts/controllers.js'></script>
+
     <!-- endbuild -->
 
 </body>

@@ -1,7 +1,7 @@
 <div class="item">
     <!-- 日起分类 -->
     <div class="mark" ng-show='loaded'>
-        {{date|date:'ddMM'}}
+        {{date|date:'ddMMM'}}
     </div>
     <ul class="posts large">
         <li ng-repeat='post in posts'>
@@ -28,5 +28,5 @@
             </div>
         </li>
     </ul>
-    <a href="#/older" class='redirect'>往期内容</a>
+    <a href="#/older" class='redirect' ng-show='loaded'>往期内容</a>
 </div>
