@@ -1,0 +1,39 @@
+<div class="older">
+    <!-- 日起分类 -->
+    <div ng-show='loaded' class='fixed mark'></div>
+    <div class="prev" ng-repeat='(key, prev) in prevs' >
+        <div ng-show='loaded' class='mark'>
+        <!--<div ng-show='loaded' ng-class='{fixed: key == curMarkKey, mark: true}'>-->
+            {{prev.date|date:'ddMMM'}}
+        </div>
+        <ul class="posts" >
+            <!-- 文章 -->
+            <li ng-repeat='post in prev.posts'>
+            <span href='javascript:void(0);' class='tag' ng-if='post.column.name'>
+                {{post.column.name}}
+            </span>
+                <div class="cont">
+                    <h3>{{post.title}}</h3>
+                    <div class="brief">
+                        <!-- 10001 -->
+                        <!-- 10002 -->
+                        <p ng-class='{only:post.display_style == 10001}' ng-if='post.display_style != 10003'>
+                            {{post.abstract}}
+                        </p>
+                        <!-- 10002 -->
+                        <div class="thumb" ng-if='post.display_style == 10002'>
+                            <img ng-src="{{post.thumbs[0].small.url}}" alt="">
+                        </div>
+                        <!-- 10003 -->
+                        <div class='gallery' ng-if='post.display_style == 10003'>
+                            <div class="ig-box" ng-repeat='thumb in post.thumbs'>
+                                <img ng-src="{{thumb.small.url}}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div loading class='loading' ng-hide='loadedPrev' src='./public/images/loading-50c5e3e79b.gif'></div>
+    </div>
+</div>

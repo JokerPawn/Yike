@@ -104,10 +104,10 @@ angular.module('Controllers', [])
                 // console.log(curTop);
                 // console.log(nextTop);
                 if (scrollDistance >= curTop && scrollDistance < nextTop) {
-                    console.log(key);
+                    // console.log(key);
                     $scope.curMarkKey = key;
                     fixed.innerHTML = $filter('date')(prev.date, 'ddMMM');
-                    console.log(fixed.innerHTML);
+                    // console.log(fixed.innerHTML);
                 }
             });
         }

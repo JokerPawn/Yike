@@ -1,0 +1,9 @@
+<ul class='category'>
+    <li ng-repeat='column in columns' class='browse'>
+        <a ng-href="#/list?id={{column.id}}"><!--修改-->
+            <img ng-src="{{column.icon}}" alt="">
+            <h5>{{column.name}}</h5>
+            <p>{{column.description}}</p>
+        </a>
+    </li>
+</ul>
