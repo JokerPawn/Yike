@@ -43,7 +43,7 @@ angular.module('Controllers', [])
     }])
 
     //往期内容
-    .controller('OlderController', ['$scope', '$http', '$rootScope', '$filter', '$window', function ($scope, $http, $rootScope, $filter, $window) {
+    .controller('OlderController', ['$scope', '$http', '$rootScope', '$filter',  function ($scope, $http, $rootScope, $filter) {
         $rootScope.title = '往期内容';
         $rootScope.index = 1;
         $rootScope.loaded = false;
@@ -51,67 +51,78 @@ angular.module('Controllers', [])
 
         var cut = -1;
         $scope.prevs = [];
-        $http({
-            url: './api/prev.php',
-            params: {cut: cut}
-        }).then(function success(info) {
-            // console.log(info);
-            $rootScope.loaded = true;
-            // $scope.date = info.data.prev.date;
-            $scope.prev = info.data.prev;
-            $scope.prevs.push($scope.prev);
-            // console.log($scope.prevs);
-            cut = cut -1;
-            fixed.innerHTML = $filter('date')($scope.prev.date, 'ddMMM');
-        }, function err(info) {
-            console.log(info);
-        });
-
-
+        var prevs = document.querySelectorAll('.prev');
+        var navsHeight = parseFloat(document.querySelector('.navs').offsetHeight);
+        var maxDistance;
         var fixed = document.querySelector('.fixed');
         var reqHttp = false;
 
-        $window.onscroll = function () {
-            var scrollDistance = document.documentElement.scrollTop;
-            // console.log(scrollDistance);
-            var maxDistence = document.body.offsetHeight - document.querySelector('.navs').offsetHeight;
-            if (reqHttp == false) {
-                if (scrollDistance >= maxDistence) {
-                    reqHttp = true;
-                    $rootScope.loadedPrev = false;
-                    $http({
-                        url: './api/prev.php',
-                        params: {cut: cut}
-                    }).then(function success(info) {
-                        reqHttp = false;
-                        // console.log(info);
-                        $rootScope.loadedPrev = true;
-                        $rootScope.loaded = true;
-                        // $scope.date = info.data.prev.date;
-                        $scope.prev = info.data.prev;
-                        $scope.prevs.push($scope.prev);
-                        // console.log($scope.prevs);
-                        cut = cut -1;}, function err(info) {
-                        reqHttp = false;
-                        console.log(info);
-                    });
-                }
-            }
-            $scope.prevs.forEach(function (prev, key) {
-                var prevs = document.querySelectorAll('.prev');
-                var curTop = prevs[key].offsetTop;
-                var nextTop = prevs[key].offsetTop + prevs[key].offsetHeight;
-                // console.log(curTop);
-                // console.log(nextTop);
-                if (scrollDistance >= curTop && scrollDistance < nextTop) {
-                    // console.log(key);
-                    $scope.curMarkKey = key;
-                    fixed.innerHTML = $filter('date')(prev.date, 'ddMMM');
-                    // console.log(fixed.innerHTML);
-                }
-            });
+
+        function getMaxDistance() {  
+            return  parseFloat(document.querySelector('.scroll').scrollHeight - navsHeight);
         }
 
+        function getScrollDistance() {
+            return parseFloat(document.querySelector('.scroll').scrollTop);
+        }
+
+        function getData() {
+            $http({
+                url: './api/prev.php',
+                params: {cut: cut}
+            }).then(function success(info) {
+                $scope.prev = info.data.prev;
+                $scope.prevs.push($scope.prev);
+                $rootScope.loaded = true;
+
+                if (cut == -1) {
+                    fixed.innerHTML = $filter('date')($scope.prev.date, 'ddMMM');
+                }
+
+                setTimeout(() => {
+                    cut = cut -1;
+                    reqHttp = false;
+                }, 0);
+
+            }, function err(info) {
+                reqHttp = false;
+                console.log(info);
+            });  
+
+        }
+       
+        getData();
+
+        setInterval(() => {
+            $scope.prevs.forEach(function (prev, key) {
+                prevs = document.querySelectorAll('.prev');
+                var curTop = prevs[key].offsetTop;
+                var nextTop = prevs[key].offsetTop + prevs[key].offsetHeight;
+                scrollDistance = getScrollDistance();
+                var headerHeight = document.querySelector('.header').offsetHeight;
+                if (cut < -1) {
+                    if (scrollDistance + headerHeight >= curTop  && scrollDistance + headerHeight < nextTop ) {
+                        fixed.innerHTML = $filter('date')(prev.date, 'ddMMM');
+                        // console.log(fixed.innerHTML);
+                    }
+                }
+            }); 
+        }, 500);
+        
+            
+        document.querySelector('.scroll').onscroll = function () {
+            if (reqHttp) return;
+            if (reqHttp == false) {
+                maxDistance = getMaxDistance();
+                scrollDistance = getScrollDistance();
+                // console.log(scrollDistance);
+                // console.log(maxDistance);
+                if (scrollDistance >= maxDistance - 10) {
+                    reqHttp = true;
+                    getData();
+                }
+            }
+        } 
     }])
 
     //热门作者
