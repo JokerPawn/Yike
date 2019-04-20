@@ -775,6 +775,11 @@ img {
   top: 44px;
   left: 0;
 }
+.body .older .scroll {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}
 .body .author {
   line-height: 1;
 }

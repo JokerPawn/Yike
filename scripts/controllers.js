@@ -79,7 +79,7 @@ angular.module('Controllers', [])
                     fixed.innerHTML = $filter('date')($scope.prev.date, 'ddMMM');
                 }
 
-                setTimeout(() => {
+                setTimeout(function () {
                     cut = cut -1;
                     reqHttp = false;
                 }, 0);
@@ -93,7 +93,7 @@ angular.module('Controllers', [])
        
         getData();
 
-        setInterval(() => {
+        setInterval(function () {
             $scope.prevs.forEach(function (prev, key) {
                 prevs = document.querySelectorAll('.prev');
                 var curTop = prevs[key].offsetTop;
